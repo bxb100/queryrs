@@ -1,5 +1,5 @@
 import { Omnibox } from "omnibox-js";
-import { EventEmitter } from "events";
+import { EventEmitter } from "node:events";
 import * as fs from "node:fs";
 import { mkdtemp } from 'node:fs/promises';
 import { join } from 'node:path';

@@ -8,27 +8,25 @@ importers:
 
   .:
     dependencies:
-      commander:
-        specifier: ^12.1.0
-        version: 12.1.0
       omnibox-js:
         specifier: ^0.6.4
         version: 0.6.4
       querylib:
-        specifier: ../query.rs/lib
-        version: link:../query.rs/lib
+        specifier: file:../query.rs/lib
+        version: file:../query.rs/lib
 
 packages:
-
-  commander@12.1.0:
-    resolution: {integrity: sha512-Vw8qHK3bZM9y/P10u3Vib8o/DdkvA2OtPtZvD871QKjy74Wj1WSKFILMPRPSdUSx5RFK1arlJzEtA4PkFgnbuA==}
-    engines: {node: '>=18'}
 
   omnibox-js@0.6.4:
     resolution: {integrity: sha512-g9QiLasOyE03wKBO1mT9jbetjwpQkCVJf4ChP/7FV8jtkXXNBhoLVlb/063qXyj8aOz35h2xP/suw9QfIwAQeA==}
 
+  querylib@file:../query.rs/lib:
+    resolution: {directory: ../query.rs/lib, type: directory}
+
 snapshots:
 
-  commander@12.1.0: {}
-
   omnibox-js@0.6.4: {}
+
+  querylib@file:../query.rs/lib:
+    dependencies:
+      omnibox-js: 0.6.4
