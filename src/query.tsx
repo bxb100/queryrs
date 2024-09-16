@@ -1,6 +1,6 @@
 import { Action, ActionPanel, Form, Icon, List, useNavigation } from "@raycast/api";
 import { execa } from "execa";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useStreamJSON } from "@raycast/utils";
 
 const env = process.env;
@@ -8,7 +8,6 @@ env.PATH = env.PAHT + ":/opt/homebrew/bin";
 const child = execa({ env: env })`queryrs`;
 
 export default function Command() {
-  const [path, setPath] = useState("");
   const { push } = useNavigation();
 
   const handleData = useCallback((data: string) => {
@@ -17,22 +16,15 @@ export default function Command() {
     }
     const path = data.toString().replace("\n", "").replace(">", "").trim();
     console.log(path);
-    setPath(`file://${path}`);
+    push(<TmpView path={`file://${path}`} />);
   }, []);
 
   useEffect(() => {
     child.stdout.on("data", handleData);
     return () => {
-      console.log("exit");
       child.stdout.off("data", handleData);
     };
   }, []);
-
-  useEffect(() => {
-    if (path) {
-      push(<TmpView path={path} />);
-    }
-  }, [path]);
 
   return (
     <Form
@@ -40,6 +32,8 @@ export default function Command() {
       actions={
         <ActionPanel>
           <Action.SubmitForm
+            title={"Query"}
+            icon={Icon.MagnifyingGlass}
             onSubmit={(values) => {
               child.stdin.write(`${values.query}\n`);
             }}
