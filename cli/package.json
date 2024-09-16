@@ -1,0 +1,21 @@
+{
+  "name": "queryrs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "queryrs": "./bin/index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "node ./bin/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^12.1.0",
+    "querylib": "../query.rs/lib",
+    "omnibox-js": "^0.6.4"
+  }
+}
