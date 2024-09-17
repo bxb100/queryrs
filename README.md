@@ -1,5 +1,5 @@
 <p align="center">
-<img src="./assets/icon-red.png" width="100">
+<img src="./assets/icon.png" width="100">
 </p>
 
 <h1 align="center">QueryRs</h1>

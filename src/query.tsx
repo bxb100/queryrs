@@ -1,4 +1,4 @@
-import { Action, ActionPanel, Form, Icon, List, useNavigation } from "@raycast/api";
+import { Action, ActionPanel, Form, Icon, Image, List, useNavigation } from "@raycast/api";
 import { execa } from "execa";
 import { useCallback, useEffect } from "react";
 import { useStreamJSON } from "@raycast/utils";
@@ -71,9 +71,9 @@ function TmpView({ path }: { path: string }) {
           return (
             <List.Item
               key={index}
-              icon={"rust.png"}
+              icon={getIcon(e.content)}
               title={data[0].trim()}
-              subtitle={data[1]?.trim()}
+              subtitle={data.slice(1).join("-").trim()}
               accessories={[{ icon: isUrl ? Icon.Link : Icon.Text }]}
               actions={<ActionPanel>{isUrl && <Action.OpenInBrowser url={e.content} />}</ActionPanel>}
             />
@@ -82,4 +82,14 @@ function TmpView({ path }: { path: string }) {
       )}
     </List>
   );
+}
+
+function getIcon(url: string): Image.ImageLike {
+  if (url.startsWith("https://crates.io")) {
+    return { source: "crate.png" };
+  } else if (url.startsWith("https://docs.rs")) {
+    return { source: "docs.png" };
+  } else {
+    return { source: "rust.png" };
+  }
 }
