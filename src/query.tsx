@@ -42,11 +42,22 @@ export default function Command() {
       }
     >
       <Form.TextField id="query" title="Query" placeholder="Search Rust" />
+      <Form.Description title="Commands" text={`:help, :book, :cargo, :stable, :tool, :yet`} />
       <Form.Separator />
-      <Form.Description title="Misc" text={`:help, :book, :cargo, :stable, :tool, :yet`} />
-      <Form.Description title="Docs" text={`/async, #cfg, vec -> usize`} />
-      <Form.Description title="Crates" text={`!tokio, !!sqlx`} />
-      <Form.Description title="Others" text={`e0038, %error, >try, ?slice`} />
+      <Form.Description title="Stable std docs" text={`option, fn:find, trait:Iterator`} />
+      <Form.Description title="Nightly std docs" text={`/async, /pin`} />
+      <Form.Description title="Attributes" text={`#, #cfg, #derive`} />
+      <Form.Description title="By type signature" text={`vec -> usize, [] -> bool`} />
+      <Form.Separator />
+      <Form.Description title="Search docs.rs" text={`!, !tokio, !axum`} />
+      <Form.Description title="Search crates.io" text={`!!, !!sqlx, !!reqwest`} />
+      <Form.Description title="Crate docs" text={`@tokio spawn`} />
+      <Form.Description title="Repository" text={`!!!sqlx`} />
+      <Form.Separator />
+      <Form.Description title="Error code" text={`e0038`} />
+      <Form.Description title="Rust books" text={`%, %pin, %error`} />
+      <Form.Description title="Clippy lints" text={`>, >if_let, >try`} />
+      <Form.Description title="Can I use" text={`?, ?const, ?slice`} />
     </Form>
   );
 }
@@ -75,7 +86,11 @@ function TmpView({ path }: { path: string }) {
               title={data[0].trim()}
               subtitle={data.slice(1).join("-").trim()}
               accessories={[{ icon: isUrl ? Icon.Link : Icon.Text }]}
-              actions={<ActionPanel>{isUrl && <Action.OpenInBrowser url={e.content} />}</ActionPanel>}
+              actions={
+                <ActionPanel>
+                  {isUrl ? <Action.OpenInBrowser url={e.content} /> : <Action.CopyToClipboard content={e.content} />}
+                </ActionPanel>
+              }
             />
           );
         })
